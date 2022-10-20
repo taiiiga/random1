@@ -1,24 +1,20 @@
-import random
 import numpy as np
 import pandas as pd
 import seaborn as sns
 import random
-import math
-import warnings
-import matplotlib.pyplot as plt
-from tqdm import tqdm
 
-xi = [5, 8, 13, 16, 21, 24, 29]
-pi = [0.1, 0.02, 0.25, 0.15, 0.35, 0.03, 0.1]
 
-intervals_1 = [round(sum(pi[:i + 1]), 2) for i in range(len(pi))]
-intervals_0 = [0] + intervals_1[:-1]
+xi = [2, 3, 5, 12, 21, 33, 44]
+pi = [0.1, 0.15, 0.2, 0.05, 0.02, 0.33, 0.15]
+
+b = [round(sum(pi[:i + 1]), 2) for i in range(len(pi))]
+a = [0] + b[:-1]
 
 frequency_table = pd.DataFrame({
     'p': pi,
     'x': xi,
-    'a': intervals_0,
-    'b': intervals_1,
+    'a': a,
+    'b': b,
 })
 
 rnd_numbers = [random.random() for _ in range(10000)]

@@ -1,28 +1,25 @@
-import random
 import numpy as np
 import pandas as pd
 import seaborn as sns
 import random
-import math
 import warnings
-import matplotlib.pyplot as plt
 from tqdm import tqdm
 
 warnings.filterwarnings("ignore")
 
 a = 0
 b = 4
-M = 0.6
+M = 0.5
 
 
 def check_func(_x0, _nu):
     if _x0 < 2:
-        return True if 0.3 * _x0 > _nu else False
-    return True if _nu < 0.2 else False
+        return True if 0.25 * _x0 > _nu else False
+    return True if _nu < 0.25 else False
 
 
-random_array = list(random.random() for _ in range(10000))
-x0_nu = [[a + random.random() * (b - a), random.random() * M] for _ in range(10000)]
+random_array = list(random.random() for _ in range(50000))
+x0_nu = [[a + random.random() * (b - a), random.random() * M] for _ in range(50000)]
 verify = []
 
 for x in x0_nu:

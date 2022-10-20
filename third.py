@@ -32,33 +32,33 @@ for x in x0_nu:
 x0_arr = list(map(lambda x: x[0], verify))
 nu_arr = list(map(lambda x: x[1], verify))
 df = pd.DataFrame({
-    'x0': x0_arr,
-    'nu': nu_arr
+    'x': x0_arr,
+    'n': nu_arr
 })
 
 print(df)
 
 intervals = np.arange(0.05, 4.01, 0.05)
 frequency_table = pd.DataFrame({
-    'interval_0': np.array([0.] + list(intervals[:-1])),
-    'interval_1': intervals
+    'a': np.array([0.] + list(intervals[:-1])),
+    'b': intervals
 })
 
 freq = np.zeros(len(intervals))
 
 for x in tqdm(x0_arr):
     for i in range(len(frequency_table)):
-        if frequency_table['interval_0'][i] < x <= frequency_table['interval_1'][i]:
+        if frequency_table['a'][i] < x <= frequency_table['b'][i]:
             freq[i] += 1
             break
 
-frequency_table['freq'] = freq
-frequency_table['relative'] = frequency_table['freq'] / frequency_table['freq'].sum()
+frequency_table['частота'] = freq
+frequency_table['относительная частота'] = frequency_table['частота'] / frequency_table['частота'].sum()
 print(frequency_table)
-sns.barplot(x=frequency_table['interval_0'], y=frequency_table['relative'] * 20)
+sns.barplot(x=frequency_table['a'], y=frequency_table['относительная частота'] * 20)
 import matplotlib.pyplot as plt
 plt.show()
-print(np.array(x0_arr).mean())
-print(np.array(x0_arr).var())
-print(np.array(nu_arr).mean())
-print(np.array(nu_arr).var())
+print('Математическое ожидание x:', np.array(x0_arr).mean())
+print('Дисперсия x:', np.array(x0_arr).var())
+print('Математическое ожидание n:', np.array(nu_arr).mean())
+print('Дисперсия n:', np.array(nu_arr).var())

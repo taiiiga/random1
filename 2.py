@@ -17,8 +17,8 @@ intervals_0 = [0] + intervals_1[:-1]
 frequency_table = pd.DataFrame({
     'p': pi,
     'x': xi,
-    'interval_0': intervals_0,
-    'interval_1': intervals_1,
+    'a': intervals_0,
+    'b': intervals_1,
 })
 
 rnd_numbers = [random.random() for _ in range(10000)]
@@ -27,30 +27,31 @@ freq = np.zeros(len(frequency_table))
 
 for x in rnd_numbers:
     for i in range(len(frequency_table)):
-        if frequency_table['interval_0'][i] < x <= frequency_table['interval_1'][i]:
+        if frequency_table['a'][i] < x <= frequency_table['b'][i]:
             freq[i] += 1
             break
 
-frequency_table['frequency'] = freq.astype('int')
-frequency_table['relative'] = frequency_table['frequency'] / 10000
+frequency_table['частота'] = freq.astype('int')
+frequency_table['относительная частота'] = frequency_table['частота'] / 10000
 
+print('Таблица частот')
 print(frequency_table)
 
 mat = 0
 for i in range(len(frequency_table)):
-    mat += frequency_table['relative'][i] * frequency_table['x'][i]
+    mat += frequency_table['относительная частота'][i] * frequency_table['x'][i]
 
-print(mat)
+print('Математическое ожидание:', mat)
 
 mat_sq = 0
 for i in range(len(frequency_table)):
-    mat_sq += frequency_table['relative'][i] * (frequency_table['x'][i]) ** 2
+    mat_sq += frequency_table['относительная частота'][i] * (frequency_table['x'][i]) ** 2
 
 var = mat_sq - mat ** 2
 
-print(var)
+print('Дисперсия', var)
 
-sns.barplot(x=frequency_table['x'], y=frequency_table['frequency']);
+sns.barplot(x=frequency_table['x'], y=frequency_table['частота']);
 
 import matplotlib.pyplot as plt
 plt.show()
